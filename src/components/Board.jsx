@@ -7,7 +7,7 @@ export const QUADRANTS = [
   { key: 'urgente',    label: '🔴 Urgente',    color: '#ef4444', text: '#fff',    desc: 'Hacé ahora' },
   { key: 'importante', label: '🟡 Importante',  color: '#facc15', text: '#0f172a', desc: 'Planificá' },
   { key: 'delegar',    label: '🟢 Delegar',     color: '#22c55e', text: '#0f172a', desc: 'Delegá' },
-  { key: 'rehacer',    label: '🟠 Rehacer',     color: '#f97316', text: '#0f172a', desc: 'Eliminá / rehacé' },
+  { key: 'rehacer',    label: '🟠 Archivar',     color: '#f97316', text: '#0f172a', desc: 'Eliminá / rehacé' },
 ]
 
 function TaskCard({ task, onDelete, onToggle }) {

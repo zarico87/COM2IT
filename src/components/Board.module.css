@@ -20,7 +20,7 @@
 .quadrant {
   background: var(--surface);
   border: 2px solid var(--qc);
-  border-radius: 16px;
+  border-radius: 5px;
   min-height: 220px;
   display: flex;
   flex-direction: column;
@@ -87,7 +87,7 @@
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-left: 4px solid var(--qc);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.6rem 0.7rem;
   cursor: grab;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -135,7 +135,7 @@
   cursor: pointer;
   color: var(--muted);
   padding: 0.2rem;
-  border-radius: 6px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   font-size: 1.1rem;
@@ -172,7 +172,7 @@
 .completedSection {
   background: var(--surface);
   border: 2px solid var(--clr-green, #22c55e);
-  border-radius: 16px;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(34, 197, 94, 0.12);
   animation: fadeIn 0.3s ease;

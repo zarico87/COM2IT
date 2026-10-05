@@ -2,7 +2,7 @@
 .form {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 5px;
   padding: 1.5rem 1.25rem;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   .form {
     position: static;
     padding: 1.25rem 1rem;
-    border-radius: 14px;
+    border-radius: 10px;
   }
 }
 
@@ -53,7 +53,7 @@
   background: var(--surface-2);
   color: var(--text);
   border: 2px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.6rem 0.8rem;
   font-weight: 500;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -101,7 +101,7 @@
   background: var(--clr-blue, #38bdf8);
   color: #0a1628;
   border: none;
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 0.75rem 1.25rem;
   font-weight: 800;
   font-size: 0.95rem;
@@ -127,7 +127,7 @@
   box-shadow: none;
 }
 
-/* ── Link y hint (para formularios auth) ─────────────────────────────────────── */
+/* ── Link y hint  ─────────────────────────────────────── */
 .link {
   color: var(--clr-blue, #38bdf8);
   font-weight: 700;
