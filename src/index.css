@@ -1,0 +1,96 @@
+/* ── Google Font ─────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ── Design tokens ───────────────────────────────────────────────────────────── */
+/* Inspirados en los colores del logo: verde #22c55e, naranja #f97316,
+   azul cielo #38bdf8, amarillo #facc15, rojo #ef4444 */
+:root {
+  /* Palette */
+  --clr-green:   #22c55e;
+  --clr-orange:  #f97316;
+  --clr-blue:    #38bdf8;
+  --clr-yellow:  #facc15;
+  --clr-red:     #ef4444;
+
+  /* Tema claro */
+  --bg:           #f0f7ff;
+  --surface:      #ffffff;
+  --surface-2:    #e8f4fd;
+  --text:         #0f172a;
+  --muted:        #4b6080;
+  --border:       #c7ddf7;
+  --primary:      #38bdf8;
+  --primary-text: #0f172a;
+  --shadow:       rgba(56, 189, 248, 0.18);
+}
+
+[data-theme='dark'] {
+  --bg:           #0a1628;
+  --surface:      #0f1e36;
+  --surface-2:    #152540;
+  --text:         #e2f0ff;
+  --muted:        #7fa8cc;
+  --border:       #1e3a5f;
+  --primary:      #38bdf8;
+  --primary-text: #0a1628;
+  --shadow:       rgba(56, 189, 248, 0.12);
+}
+
+/* ── Reset / base ────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', system-ui, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── Scrollbar personalizado ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 99px; }
+
+/* ── Helpers de layout ───────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.flex         { display: flex; }
+.flex-col     { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2        { gap: 0.5rem; }
+.gap-4        { gap: 1rem; }
+.gap-6        { gap: 1.5rem; }
+.flex-1       { flex: 1; }
+.min-h-screen { min-height: 100vh; }
+.px-4         { padding-inline: 1rem; }
+.py-3         { padding-block: 0.75rem; }
+.py-8         { padding-block: 2rem; }
+.mt-auto      { margin-top: auto; }
+.mx-auto      { margin-inline: auto; }
+.max-w-7xl    { max-width: 80rem; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* Layout grid para el panel principal */
+@media (min-width: 1024px) {
+  .lg-grid-sidebar {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 1.5rem;
+  }
+}

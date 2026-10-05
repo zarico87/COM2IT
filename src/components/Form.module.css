@@ -1,0 +1,146 @@
+/* ── Formulario general ──────────────────────────────────────────────────────── */
+.form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 6px 30px var(--shadow);
+  align-self: start;
+  position: sticky;
+  top: 80px;
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .form {
+    position: static;
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+  }
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* ── Campos ──────────────────────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  position: relative;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-weight: 500;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--clr-blue, #38bdf8);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237fa8cc' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem;
+}
+
+/* ── Errores y contador ──────────────────────────────────────────────────────── */
+.error {
+  color: var(--clr-red, #ef4444);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.counter {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: right;
+  margin-top: -0.15rem;
+}
+
+/* ── Botón submit burbuja ────────────────────────────────────────────────────── */
+.submit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--clr-blue, #38bdf8);
+  color: #0a1628;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
+  margin-top: 0.25rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .submit { width: auto; }
+}
+
+.submit:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.45);
+}
+
+.submit:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Link y hint (para formularios auth) ─────────────────────────────────────── */
+.link {
+  color: var(--clr-blue, #38bdf8);
+  font-weight: 700;
+}
+
+.hint {
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ── Auth card ────────────────────────────────────────────────────────────────── */
+.card {
+  max-width: 420px;
+  width: 100%;
+}
