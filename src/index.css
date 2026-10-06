@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
 /* ── Design tokens ───────────────────────────────────────────────────────────── */
-/* Inspirados en los colores del logo: verde #22c55e, naranja #f97316,
+/* colores del logo: verde #22c55e, naranja #f97316,
    azul cielo #38bdf8, amarillo #facc15, rojo #ef4444 */
 :root {
   /* Palette */
@@ -22,6 +22,7 @@
   --primary:      #38bdf8;
   --primary-text: #0f172a;
   --shadow:       rgba(56, 189, 248, 0.18);
+  color-scheme: light;
 }
 
 [data-theme='dark'] {
@@ -34,6 +35,7 @@
   --primary:      #38bdf8;
   --primary-text: #0a1628;
   --shadow:       rgba(56, 189, 248, 0.12);
+  color-scheme: dark;
 }
 
 /* ── Reset / base ────────────────────────────────────────────────────────────── */

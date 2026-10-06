@@ -16,6 +16,7 @@
     "react-router-dom": "^7.6.0",
     "react-toastify": "^11.0.5",
     "sweetalert2": "^11.22.0",
+    "threejs-components": "^0.0.19",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

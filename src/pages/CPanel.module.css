@@ -85,6 +85,27 @@
 
 .out:hover { background: var(--clr-red, #ef4444); color: #fff; }
 
+/* boton para ir al inicio desde el cpanel */
+.goHome {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.goHome:hover {
+  background: var(--clr-blue, #38bdf8);
+  border-color: var(--clr-blue, #38bdf8);
+  color: #0a1628;
+}
+
 /* ── Stats cards ─────────────────────────────────────────────────────────────── */
 .stats {
   display: grid;
@@ -168,4 +189,111 @@
   text-align: center;
   color: var(--muted);
   padding: 2rem;
+}
+
+/* ── Toolbar con buscador y filtros ─────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  flex: 1;
+  min-width: 220px;
+  max-width: 380px;
+}
+
+.searchIcon {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterBtn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.activeFilter {
+  background: var(--clr-blue, #38bdf8);
+  color: #0a1628 !important;
+  border-color: var(--clr-blue, #38bdf8);
+}
+
+.refreshBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.refreshBtn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .searchWrap {
+    max-width: 100%;
+  }
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

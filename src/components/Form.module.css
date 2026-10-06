@@ -78,6 +78,59 @@
   padding-right: 2rem;
 }
 
+/* ── Selector de fecha  ───────────────── */
+.dateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clearDateBtn {
+  background: transparent;
+  border: none;
+  color: var(--clr-red, #ef4444);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+}
+
+.clearDateBtn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.field input[type="date"] {
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+
+.field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  opacity: 0.85;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+@media (max-width: 640px) {
+  .field input,
+  .field textarea,
+  .field select {
+    font-size: 16px; /* evita auto-zoom en Safari iOS */
+  }
+}
+
 /* ── Errores y contador ──────────────────────────────────────────────────────── */
 .error {
   color: var(--clr-red, #ef4444);

@@ -29,6 +29,9 @@ importers:
       sweetalert2:
         specifier: ^11.22.0
         version: 11.26.25
+      threejs-components:
+        specifier: ^0.0.19
+        version: 0.0.19
       zustand:
         specifier: ^5.0.15
         version: 5.0.15(react@19.3.0)
@@ -932,6 +935,9 @@ packages:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
 
+  threejs-components@0.0.19:
+    resolution: {integrity: sha512-4Zk9StS8nLM07h66g2q5WtZWRDSe5D58W4whCq8MkT95+nidnYS8SNr49kYr44/sfN6NKwz0ibA9APkxKT/dWA==}
+
   tinyglobby@0.2.17:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
@@ -1740,6 +1746,8 @@ snapshots:
   tailwindcss@4.3.3: {}
 
   tapable@2.3.3: {}
+
+  threejs-components@0.0.19: {}
 
   tinyglobby@0.2.17:
     dependencies:

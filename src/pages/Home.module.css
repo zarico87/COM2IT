@@ -13,6 +13,34 @@
   margin-inline: auto;
 }
 
+/* ── Barra de resumen en Home ─────────────────────────────────────────────────── */
+.summaryBar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.summaryItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.summaryNum {
+  color: var(--text);
+  font-weight: 800;
+}
+
 /* ── Layout sidebar + board ──────────────────────────────────────────────────── */
 .layout {
   display: flex;
@@ -33,6 +61,7 @@
   .content {
     padding: 1rem 0.75rem;
   }
+
   .layout {
     gap: 1rem;
   }
@@ -60,7 +89,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Guest landing ───────────────────────────────────────────────────────────── */
@@ -90,8 +121,15 @@
 }
 
 @keyframes pop {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .gateLogo {
@@ -159,4 +197,6 @@
   box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
 }
 
-.btnPrimary:hover { filter: brightness(1.1); }
+.btnPrimary:hover {
+  filter: brightness(1.1);
+}

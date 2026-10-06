@@ -2,7 +2,91 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+/* ── Barra con buscador y filtros ─────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.65rem;
+  flex: 1;
+  min-width: 180px;
+}
+
+.searchIcon {
+  color: var(--muted);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.chips {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.chipActive {
+  background: var(--clr-blue, #38bdf8);
+  color: #0a1628 !important;
+  border-color: var(--clr-blue, #38bdf8);
+}
+
+@media (max-width: 640px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .searchBox {
+    min-width: 100%;
+  }
 }
 
 /* ── Grid de cuadrantes ──────────────────────────────────────────────────────── */
@@ -168,6 +252,42 @@
   transform: scale(1.1);
 }
 
+/* ── Botón editar (lápiz) ──────────────────────────────────────────────── */
+.editBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 0.2rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.editBtn:hover {
+  color: #fff;
+  background: var(--clr-blue, #38bdf8);
+  transform: scale(1.1);
+}
+
+/* ── Badge de fecha límite en tarjeta ──────────────────────────────── */
+.dueBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--clr-blue, #38bdf8);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  margin-top: 0.3rem;
+}
+
 /* ── Sección tareas completadas ──────────────────────────────────────────────── */
 .completedSection {
   background: var(--surface);
@@ -218,4 +338,240 @@
 /* Dentro del cuadrante de completadas, borde left verde */
 .completedList .card {
   --qc: var(--clr-green, #22c55e);
+}
+
+/* ── Modal overlay ──────────────────────────────────────────────────── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.18s ease;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  animation: slideUp 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Cabecera del modal ──────────────────────────────────────── */
+.modalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalHead h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.modalClose {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.modalClose:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* ── Cuerpo del modal ────────────────────────────────────────── */
+.modalBody {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  position: relative;
+}
+
+.modalLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.modalField input,
+.modalField textarea,
+.modalField select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  width: 100%;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modalField input:focus,
+.modalField textarea:focus,
+.modalField select:focus {
+  outline: none;
+  border-color: var(--clr-blue, #38bdf8);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.modalField select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237fa8cc' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem;
+}
+
+/* ── Selector de fecha modal (móvil y accesibilidad) ────────────────────────── */
+.dateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clearDateBtn {
+  background: transparent;
+  border: none;
+  color: var(--clr-red, #ef4444);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+}
+
+.clearDateBtn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.modalField input[type="date"] {
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+
+.modalField input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  opacity: 0.85;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.modalField input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+@media (max-width: 640px) {
+  .modalField input,
+  .modalField textarea,
+  .modalField select {
+    font-size: 16px; /* evita auto-zoom en iOS Safari */
+  }
+}
+
+.modalError {
+  color: var(--clr-red, #ef4444);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.modalCounter {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ── Footer del modal ───────────────────────────────────────── */
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.modalCancel {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.modalCancel:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.modalSave {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--clr-blue, #38bdf8);
+  color: #0a1628;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.38);
+}
+
+.modalSave:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
 }

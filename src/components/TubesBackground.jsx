@@ -12,7 +12,8 @@ export default function TubesBackground() {
     let app, cancelled = false
     const recolor = () => { app?.tubes.setColors(neonColors(3)); app?.tubes.setLightsColors(neonColors(4)) }
 
-    import(/* @vite-ignore */ CDN)
+    // ahora se importa desde node_modules (instalado localmente): carga rápido
+    import('threejs-components/build/cursors/tubes1.min.js')
       .then(({ default: TubesCursor }) => {
         if (cancelled) return
         app = TubesCursor(canvasRef.current, {

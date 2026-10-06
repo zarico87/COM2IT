@@ -1,84 +1,151 @@
-// Store global de tareas con Zustand + persistencia en localStorage
+// store de tareas - usa zustand
+// TODO: capaz despues agregar filtros por fecha
 import { create } from 'zustand'
 import { tasksApi } from '../services/api.js'
 import { toast } from 'react-toastify'
 
+// esta key la uso para guardar en localStorage (no la estoy usando todavia pero la dejo)
 const LS_KEY = 'com2it_tasks_store'
 
 const useTaskStore = create((set, get) => ({
   tasks: [],
   loading: false,
 
-  // Cargar tareas del usuario desde API o localStorage
+  // trae las tareas del usuario
   fetchTasks: async (ownerId) => {
-    if (!ownerId) { set({ tasks: [] }); return }
+    if (!ownerId) {
+      set({ tasks: [] })
+      return
+    }
     set({ loading: true })
     try {
       const tasks = await tasksApi.list(ownerId)
-      set({ tasks, loading: false })
-    } catch {
+      set({ tasks: tasks, loading: false })
+    } catch (error) {
+      console.error('error al cargar tareas:', error)
       toast.error('No se pudieron cargar las tareas')
       set({ loading: false })
     }
   },
 
-  // Agregar tarea
+  // agrega una tarea nueva
   addTask: async (data, ownerId) => {
     try {
-      const task = await tasksApi.create(data, ownerId)
-      set((s) => ({ tasks: [...s.tasks, task] }))
+      const nuevaTarea = await tasksApi.create(data, ownerId)
+      set((estado) => ({ tasks: [...estado.tasks, nuevaTarea] }))
       toast.success('Tarea creada 🎉')
     } catch (err) {
       toast.error(err.message)
     }
   },
 
-  // Mover tarea entre cuadrantes (drag & drop)
+  // cuando arrastras la tarea a otro cuadrante
   moveTask: async (id, quadrant) => {
-    const task = get().tasks.find((t) => t.id === id)
-    if (!task || task.quadrant === quadrant) return
-    // Actualización optimista
-    set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, quadrant } : t)) }))
+    const tareaActual = get().tasks.find((t) => t.id === id)
+    if (!tareaActual) return
+    if (tareaActual.quadrant === quadrant) return
+
+    // labels para mostrar en el toast
+    const nombresQuadrante = {
+      urgente: 'Urgente',
+      importante: 'Importante',
+      delegar: 'Delegar',
+      rehacer: 'Archivar',
+    }
+
+    // actualizo en el estado antes de que responda la API
+    set((estado) => ({
+      tasks: estado.tasks.map((t) => {
+        if (t.id === id) return { ...t, quadrant: quadrant }
+        return t
+      })
+    }))
+
     try {
       await tasksApi.update(id, { quadrant })
-      toast.info(`Movida a "${quadrant}"`)
+      const nombreMostrar = nombresQuadrante[quadrant] || quadrant
+      toast.info(`Movida a "${nombreMostrar}" 📌`)
     } catch (err) {
-      // Revertir si falla
-      set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, quadrant: task.quadrant } : t)) }))
+      // si falla revierto el cambio
+      console.log('fallo el update, revirtiendo...')
+      set((estado) => ({
+        tasks: estado.tasks.map((t) => {
+          if (t.id === id) return { ...t, quadrant: tareaActual.quadrant }
+          return t
+        })
+      }))
       toast.error(err.message)
     }
   },
 
-  // Marcar tarea como completada/incompleta
-  toggleComplete: async (id) => {
-    const task = get().tasks.find((t) => t.id === id)
-    if (!task) return
-    const newCompleted = !task.completed
-    set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, completed: newCompleted } : t)) }))
+  // edita titulo, descripcion, cuadrante o fecha de una tarea
+  updateTask: async (id, patch) => {
+    const tareasAntes = get().tasks
+    // actualizo primero y despues confirmo con la API
+    set((estado) => ({
+      tasks: estado.tasks.map((t) => {
+        if (t.id === id) return { ...t, ...patch }
+        return t
+      })
+    }))
     try {
-      await tasksApi.update(id, { completed: newCompleted })
-      toast.success(newCompleted ? '✅ Tarea completada' : 'Tarea reabierta')
+      await tasksApi.update(id, patch)
+      toast.success('Guardado ✏️')
     } catch (err) {
-      // Revertir
-      set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? { ...t, completed: task.completed } : t)) }))
+      // si falla vuelvo a las tareas de antes
+      set({ tasks: tareasAntes })
       toast.error(err.message)
     }
   },
 
-  // Eliminar tarea
+  // marca como hecha o la reabre
+  toggleComplete: async (id) => {
+    const tarea = get().tasks.find((t) => t.id === id)
+    if (!tarea) return
+
+    const estabaCompletada = tarea.completed
+    const nuevoValor = !estabaCompletada
+
+    set((estado) => ({
+      tasks: estado.tasks.map((t) => {
+        if (t.id === id) return { ...t, completed: nuevoValor }
+        return t
+      })
+    }))
+
+    try {
+      await tasksApi.update(id, { completed: nuevoValor })
+      if (nuevoValor) {
+        toast.success('✅ Tarea completada')
+      } else {
+        toast.success('Tarea reabierta')
+      }
+    } catch (err) {
+      // revertir
+      set((estado) => ({
+        tasks: estado.tasks.map((t) => {
+          if (t.id === id) return { ...t, completed: estabaCompletada }
+          return t
+        })
+      }))
+      toast.error(err.message)
+    }
+  },
+
+  // borra la tarea
   deleteTask: async (id) => {
-    const prev = get().tasks
-    set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) }))
+    const tareasAntes = get().tasks
+    set((estado) => ({ tasks: estado.tasks.filter((t) => t.id !== id) }))
     try {
       await tasksApi.remove(id)
       toast.success('Tarea eliminada')
     } catch (err) {
-      set({ tasks: prev })
+      set({ tasks: tareasAntes })
       toast.error(err.message)
     }
   },
 
-  // Limpiar store al hacer logout
+  // limpia todo cuando el usuario cierra sesion
   clearTasks: () => set({ tasks: [] }),
 }))
 

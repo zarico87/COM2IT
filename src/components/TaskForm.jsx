@@ -1,14 +1,21 @@
-import { useState } from 'react'
-import { FiPlus, FiAlignLeft, FiTag } from 'react-icons/fi'
+import { useState, useEffect } from 'react'
+import { FiPlus, FiAlignLeft, FiTag, FiCalendar } from 'react-icons/fi'
 import { QUADRANTS } from './Board.jsx'
 import { validateTask } from '../utils/validators.js'
 import s from './Form.module.css'
 
-const EMPTY = { title: '', description: '', quadrant: 'urgente' }
+const EMPTY = { title: '', description: '', quadrant: 'urgente', dueDate: '' }
 
 export default function TaskForm({ onCreate }) {
   const [form, setForm] = useState(EMPTY)
   const [errors, setErrors] = useState({})
+
+  // useEffect para limpiar el error del titulo cuando el usuario escribe al menos 3 letras
+  useEffect(() => {
+    if (form.title.trim().length >= 3 && errors.title) {
+      setErrors((prev) => ({ ...prev, title: undefined }))
+    }
+  }, [form.title, errors.title])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,7 +29,12 @@ export default function TaskForm({ onCreate }) {
     const errs = validateTask(form)
     setErrors(errs)
     if (Object.keys(errs).length) return
-    onCreate({ ...form, title: form.title.trim(), description: form.description.trim() })
+    onCreate({
+      ...form,
+      title:       form.title.trim(),
+      description: form.description.trim(),
+      dueDate:     form.dueDate || null,
+    })
     setForm(EMPTY)
   }
 
@@ -64,6 +76,31 @@ export default function TaskForm({ onCreate }) {
             <option key={q.key} value={q.key}>{q.label}</option>
           ))}
         </select>
+      </label>
+
+      <label className={s.field}>
+        <div className={s.dateHeader}>
+          <span className={s.label}><FiCalendar /> Fecha límite</span>
+          {form.dueDate && (
+            <button
+              type="button"
+              className={s.clearDateBtn}
+              onClick={(e) => {
+                e.preventDefault()
+                setForm((prev) => ({ ...prev, dueDate: '' }))
+              }}
+              title="Quitar fecha límite"
+            >
+              ✕ Quitar fecha
+            </button>
+          )}
+        </div>
+        <input
+          type="date"
+          name="dueDate"
+          value={form.dueDate}
+          onChange={handleChange}
+        />
       </label>
 
       <button type="submit" className={s.submit}>

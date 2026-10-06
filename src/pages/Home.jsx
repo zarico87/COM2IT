@@ -13,7 +13,7 @@ export default function Home() {
   const ownerId = user?.id || user?._id
 
   // Estado global de tareas desde Zustand
-  const { tasks, loading, fetchTasks, addTask, moveTask, toggleComplete, deleteTask } = useTaskStore()
+  const { tasks, loading, fetchTasks, addTask, moveTask, toggleComplete, deleteTask, updateTask } = useTaskStore()
 
   // Cargar tareas cuando cambia el usuario (useEffect + Zustand)
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function Home() {
   const handleCreate = (data) => addTask(data, ownerId)
   const handleMove   = (id, quadrant) => moveTask(id, quadrant)
   const handleToggle = (id) => toggleComplete(id)
+  const handleEdit   = (id, patch) => updateTask(id, patch)
 
   const handleDelete = async (id) => {
     const task = tasks.find((t) => t.id === id)
@@ -41,6 +42,11 @@ export default function Home() {
     if (isConfirmed) deleteTask(id)
   }
 
+  // metodos funcionales de array: filter para calcular metricas
+  const activasCount = tasks.filter((t) => !t.completed).length
+  const urgentesCount = tasks.filter((t) => !t.completed && t.quadrant === 'urgente').length
+  const completadasCount = tasks.filter((t) => t.completed).length
+
   return (
     <section className={s.hero}>
       <TubesBackground />
@@ -53,15 +59,36 @@ export default function Home() {
               <p>Cargando tus tareas...</p>
             </div>
           ) : (
-            <div className={s.layout}>
-              <TaskForm onCreate={handleCreate} />
-              <Board
-                tasks={tasks}
-                onMove={handleMove}
-                onDelete={handleDelete}
-                onToggle={handleToggle}
-              />
-            </div>
+            <>
+              {/* resumen de tareas con badges responsive */}
+              {tasks.length > 0 && (
+                <div className={s.summaryBar}>
+                  <div className={s.summaryItem}>
+                    <span>📌 Pendientes:</span>
+                    <span className={s.summaryNum}>{activasCount}</span>
+                  </div>
+                  <div className={s.summaryItem}>
+                    <span>🔴 Urgentes:</span>
+                    <span className={s.summaryNum}>{urgentesCount}</span>
+                  </div>
+                  <div className={s.summaryItem}>
+                    <span>✅ Completadas:</span>
+                    <span className={s.summaryNum}>{completadasCount}</span>
+                  </div>
+                </div>
+              )}
+
+              <div className={s.layout}>
+                <TaskForm onCreate={handleCreate} />
+                <Board
+                  tasks={tasks}
+                  onMove={handleMove}
+                  onDelete={handleDelete}
+                  onToggle={handleToggle}
+                  onEdit={handleEdit}
+                />
+              </div>
+            </>
           )}
         </div>
       ) : (
