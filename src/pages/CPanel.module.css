@@ -41,7 +41,7 @@
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 1.5rem;
   box-shadow: 0 8px 40px var(--shadow);
   display: flex;
@@ -75,7 +75,7 @@
   gap: 0.4rem;
   padding: 0.5rem 1.1rem;
   border: 2px solid var(--clr-red, #ef4444);
-  border-radius: 999px;
+  border-radius: 8px;
   background: transparent;
   color: var(--clr-red, #ef4444);
   font-weight: 700;
@@ -103,7 +103,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 2px solid transparent;
 }
 
@@ -156,7 +156,7 @@
 .badgeAdmin,
 .badgeUser {
   padding: 0.15rem 0.6rem;
-  border-radius: 999px;
+  border-radius: 5px;
   font-size: 0.78rem;
   font-weight: 700;
 }
